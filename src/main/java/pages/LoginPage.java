@@ -7,17 +7,21 @@ import org.openqa.selenium.WebElement;
 public class LoginPage {
     //    define attribute
 //    selenium => WebDriver
-    private WebDriver driver;
+    private final WebDriver driver;
 
     //    define các element trong Login page
 //    form username
-    private By usernameField = By.name("username");
+    private final By usernameField = By.name("username");
     //    form password
-    private By passwordField = By.name("password");
+    private final By passwordField = By.name("password");
     //    button login
-    private By loginButton = By.xpath("//button[@type='submit' or text()='Login']");
-    //    endpoint của page login
-    private String loginUrl = "https://demo6.cybersoft.edu.vn/login";
+    private final By loginButton = By.xpath("//button[@type='submit' or text()='Login']");
+
+    //    <a href="/register" data-discover="true">Đăng ký tại đây</a>
+    private final By registerNavLink = By.xpath("//a[@href='/register']");
+
+    //    <a href="/forgot-password" data-discover="true">Quên mật khẩu?</a>
+    private final By forgotPasswordLink = By.xpath("//a[@href='/forgot-password']");
 
     //    Hàm khởi tạo
     public LoginPage(WebDriver driver) {
@@ -26,6 +30,8 @@ public class LoginPage {
 
     //    Hàm mở trang login
     public void openLoginPage() {
+        //    endpoint của page login
+        String loginUrl = "https://demo6.cybersoft.edu.vn/login";
         driver.get(loginUrl);
     }
 
@@ -61,7 +67,17 @@ public class LoginPage {
     }
 
     //    hàm get endpointUrl
-    public String getCurrentUrl(){
+    public String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    public void clickRegisterLink() {
+        WebElement registerLink = driver.findElement(registerNavLink);
+        registerLink.click();
+    }
+
+    public void clickForgotPasswordLink() {
+        WebElement forgotPasswordNavLink = driver.findElement(forgotPasswordLink);
+        forgotPasswordNavLink.click();
     }
 }
